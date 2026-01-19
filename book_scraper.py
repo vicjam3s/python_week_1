@@ -8,7 +8,7 @@ BOOKS_URL = "https://books.toscrape.com/"
 print("Starting book scraper...")
 
 try:
-    # 1. Get books page
+    
     response = requests.get(BOOKS_URL, timeout=10)
     response.raise_for_status()
 
@@ -29,12 +29,12 @@ try:
     if not books:
         raise Exception("No books found.")
 
-    # 2. Display table
+    
     df = pd.DataFrame(books)
     print("\nBook Prices (Original Currency):\n")
     print(tabulate(df, headers="keys", tablefmt="grid", showindex=False))
 
-    # 3. Save files
+  
     df.to_csv("books.csv", index=False)
     df.to_json("books.json", orient="records", indent=4)
 
