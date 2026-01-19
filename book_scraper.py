@@ -2,13 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from tabulate import tabulate
+import re
 
 BOOKS_URL = "https://books.toscrape.com/"
+RATE_API = "https://open.er-api.com/v6/latest/GBP"
+TARGET_CURRENCY = "KES"   # Kenyan Shilling
 
-print("Starting book scraper...")
+print("Starting book scraper (with currency conversion)...")
 
 try:
-    
+    # 1. Get books page
     response = requests.get(BOOKS_URL, timeout=10)
     response.raise_for_status()
 
@@ -20,21 +23,34 @@ try:
     for book in book_tags:
         title = book.h3.a["title"]
         price_text = book.select_one(".price_color").text.strip()
+        clean_price = re.sub(r"[^\d.]", "", price_text)
+        price_gbp = float(clean_price)
 
         books.append({
             "title": title,
-            "price": price_text
+            "price_gbp": price_gbp
         })
 
     if not books:
         raise Exception("No books found.")
 
-    
+    # 2. Get exchange rate
+    rate_response = requests.get(RATE_API, timeout=10)
+    rate_response.raise_for_status()
+    rate_data = rate_response.json()
+
+    rate = rate_data["rates"][TARGET_CURRENCY]
+
+    # 3. Convert prices
+    for book in books:
+        book[f"price_{TARGET_CURRENCY.lower()}"] = round(book["price_gbp"] * rate, 2)
+
+    # 4. Display table
     df = pd.DataFrame(books)
-    print("\nBook Prices (Original Currency):\n")
+    print("\nConverted Prices:\n")
     print(tabulate(df, headers="keys", tablefmt="grid", showindex=False))
 
-  
+    # 5. Save files
     df.to_csv("books.csv", index=False)
     df.to_json("books.json", orient="records", indent=4)
 
@@ -45,3 +61,4 @@ except requests.exceptions.RequestException as e:
 
 except Exception as e:
     print("[ERROR] Something went wrong:", e)
+
