@@ -1,42 +1,52 @@
 [
     {
         "title":"A Light in the Attic",
-        "price":"\u00c2\u00a351.77"
+        "price_gbp":51.77,
+        "price_kes":8944.0
     },
     {
         "title":"Tipping the Velvet",
-        "price":"\u00c2\u00a353.74"
+        "price_gbp":53.74,
+        "price_kes":9284.35
     },
     {
         "title":"Soumission",
-        "price":"\u00c2\u00a350.10"
+        "price_gbp":50.1,
+        "price_kes":8655.48
     },
     {
         "title":"Sharp Objects",
-        "price":"\u00c2\u00a347.82"
+        "price_gbp":47.82,
+        "price_kes":8261.58
     },
     {
         "title":"Sapiens: A Brief History of Humankind",
-        "price":"\u00c2\u00a354.23"
+        "price_gbp":54.23,
+        "price_kes":9369.0
     },
     {
         "title":"The Requiem Red",
-        "price":"\u00c2\u00a322.65"
+        "price_gbp":22.65,
+        "price_kes":3913.11
     },
     {
         "title":"The Dirty Little Secrets of Getting Your Dream Job",
-        "price":"\u00c2\u00a333.34"
+        "price_gbp":33.34,
+        "price_kes":5759.96
     },
     {
         "title":"The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull",
-        "price":"\u00c2\u00a317.93"
+        "price_gbp":17.93,
+        "price_kes":3097.66
     },
     {
         "title":"The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
-        "price":"\u00c2\u00a322.60"
+        "price_gbp":22.6,
+        "price_kes":3904.47
     },
     {
         "title":"The Black Maria",
-        "price":"\u00c2\u00a352.15"
+        "price_gbp":52.15,
+        "price_kes":9009.65
     }
 ]

@@ -8,7 +8,7 @@ BOOKS_URL = "https://books.toscrape.com/"
 RATE_API = "https://open.er-api.com/v6/latest/GBP"
 TARGET_CURRENCY = "KES"   # Kenyan Shilling
 
-print("Starting book scraper (with currency conversion)...")
+print("Starting book scraper)...")
 
 try:
     # 1. Get books page
@@ -34,23 +34,23 @@ try:
     if not books:
         raise Exception("No books found.")
 
-    # 2. Get exchange rate
+    # exchange rate
     rate_response = requests.get(RATE_API, timeout=10)
     rate_response.raise_for_status()
     rate_data = rate_response.json()
 
     rate = rate_data["rates"][TARGET_CURRENCY]
 
-    # 3. Convert prices
+    # convert prices
     for book in books:
         book[f"price_{TARGET_CURRENCY.lower()}"] = round(book["price_gbp"] * rate, 2)
 
-    # 4. Display table
+    # display table
     df = pd.DataFrame(books)
     print("\nConverted Prices:\n")
     print(tabulate(df, headers="keys", tablefmt="grid", showindex=False))
 
-    # 5. Save files
+    # save files
     df.to_csv("books.csv", index=False)
     df.to_json("books.json", orient="records", indent=4)
 
