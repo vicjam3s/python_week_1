@@ -50,7 +50,7 @@ try:
     print("\nConverted Prices:\n")
     print(tabulate(df, headers="keys", tablefmt="grid", showindex=False))
 
-    # save files
+    # save files.
     df.to_csv("books.csv", index=False)
     df.to_json("books.json", orient="records", indent=4)
 
